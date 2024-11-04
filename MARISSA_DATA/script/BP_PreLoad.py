@@ -54,7 +54,7 @@ def make_filters(filter_set = 'TESLA'):
         
         print('TESLA Filter Set to be used \n')
         
-        base_TESLA = '/work/07446/astroboi/ls6/bagpipes_install_test/filters/'
+        base_TESLA = '/Users/oac466/Desktop/filters/'
 
         TESLA_Filters = ['CFHT/H20_CFHT_Megaprime.u.dat', 
                          'HSC_Filters/HSC_g_filt.txt',
@@ -77,7 +77,7 @@ def make_filters(filter_set = 'TESLA'):
         
         print('SHELA Filter Set to be used \n')
         
-        base_SHELA = '/work/07446/astroboi/ls6/bagpipes_install_test/filters/'
+        base_SHELA = '/Users/oac466/Desktop/filters/'
         
 #         TESLA_Filters = ['CFHT/H20_CFHT_Megaprime.u.dat', 
 #                          'HSC_Filters/HSC_g_filt.txt',
@@ -111,21 +111,24 @@ def make_filters(filter_set = 'TESLA'):
         #          'FLUX_F444W'
         '''
     
-        base_ceers = '/work/07446/astroboi/ls6/bagpipes_install_test/filters/'
+        base_ceers = '/Users/oac466/Desktop/filters/'
         
-        filter_files =  ['HST/ACS/ACS_F606W.txt', 
+        filter_files =  ['HST/ACS/ACS_F435W.txt',
+                         'HST/ACS/ACS_F606W.txt', 
                          'HST/ACS/ACS_F814W.txt',
                          'HST/WFC3/WFC3_F105W.txt',
                          'HST/WFC3/WFC3_F125W.txt',
                          'HST/WFC3/WFC3_F140W.txt',
                          'HST/WFC3/WFC3_F160W.txt',
+                         'JWST/F090W.txt',
                          'JWST/F115W.txt',
                          'JWST/F150W.txt', 
                          'JWST/F200W.txt', 
                          'JWST/F277W.txt', 
                          'JWST/F356W.txt', 
                          'JWST/F410M.txt', 
-                         'JWST/F444W.txt']
+                         'JWST/F444W.txt', 
+                         'JWST/F470N.txt']
         
         CEERS_filts = [base_ceers+x for x in filter_files]
         
@@ -142,7 +145,7 @@ def make_filters(filter_set = 'TESLA'):
         
         #'F606W', 'F814W', 'F105W', 'F125W', 'F140W', 'F160W', 'F36', 'F45'
         
-        base_candels = '/work/07446/astroboi/ls6/bagpipes_install_test/filters/'
+        base_candels = '/Users/oac466/Desktop/filters/'
         filter_files =  ['HST/ACS/ACS_F606W.txt', 
                          'HST/ACS/ACS_F814W.txt',
                          'HST/WFC3/WFC3_F105W.txt',
@@ -160,6 +163,50 @@ def make_filters(filter_set = 'TESLA'):
         print()
         
         return CANDELS_filts
+    
+    elif filter_set == 'UDS':
+
+        # 'FLUX_F435W',
+        # 'FLUX_F606W',
+        # 'FLUX_F814W',
+        # 'FLUX_F125W',
+        # 'FLUX_F140W',
+        # 'FLUX_F160W',
+        # 'FLUX_F090W',
+        # 'FLUX_F115W',
+        # 'FLUX_F150W',
+        # 'FLUX_F200W',
+        # 'FLUX_F277W',
+        # 'FLUX_F356W',
+        # 'FLUX_F410M',
+        # 'FLUX_F444W'
+
+        base_uds = '/Users/oac466/Desktop/filters/'
+        filter_files =  ['HST/ACS/ACS_F435W.txt',
+                        'HST/ACS/ACS_F606W.txt', 
+                        'HST/ACS/ACS_F814W.txt',
+                        'HST/WFC3/WFC3_F125W.txt',
+                        'HST/WFC3/WFC3_F140W.txt',
+                        'HST/WFC3/WFC3_F160W.txt',
+                        'JWST/F090W.txt',
+                        'JWST/F115W.txt',
+                        'JWST/F150W.txt',
+                        'JWST/F200W.txt',
+                        'JWST/F277W.txt',
+                        'JWST/F356W.txt',
+                        'JWST/F410M.txt',
+                        'JWST/F444W.txt']
+        
+        UDS_filts = [base_uds+x for x in filter_files]
+
+        print('Reading in the UDS Filters: ')
+        for x in UDS_filts:
+            print(x)
+        print('-------------------------------------------------------------------------------------')
+        print()
+
+        return UDS_filts
+
     
     else:
         print('No Valid Filter Set Given')
