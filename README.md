@@ -1,2 +1,2 @@
-# VIP_Students_Analysis
+# VIP Students Analysis
 A repo showcasing some work to get GEVIP Students Data
