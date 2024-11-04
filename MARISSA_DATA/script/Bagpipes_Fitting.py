@@ -153,6 +153,51 @@ def load_phot_CANDELS(ID):
 
     return photom
 
+def load_phot_UDS(ID):
+
+    ##########
+    #WILL NEED TO CHANGE THIS BASED OFF OF THE INPUT CATALOG
+    #WE NEED TO DO THIS 
+    ##########
+    Bagpipes_Phot_DF = pd.read_csv('MARISSA_UDS_PHOTOM.txt', 
+                                   sep = ' ', index_col = 0)
+    
+    ID = int(ID)
+
+    #defining the columns we will use in the photometry
+    flux_cols = flux = [x for x in Bagpipes_Phot_DF.columns.values if 'FLUX_F' in x]
+
+    flux_err_cols = [x for x in Bagpipes_Phot_DF.columns.values if 'FLUXERR_F' in x]
+
+    
+    
+    #getting the full flux and flux error info
+    photom_flux = Bagpipes_Phot_DF.loc[ID, flux_cols]
+    photom_flux_err = Bagpipes_Phot_DF.loc[ID, flux_err_cols]
+
+    #we are artificially inflating the flux errors for non_irac filters by 5%
+    photom_flux_err[flux_err_cols] = np.sqrt(((photom_flux_err[flux_err_cols].values.astype(float))**2 + 
+                                         (.05 * photom_flux[flux_cols].values.astype(float))**2))
+    
+
+    #getting the snr of sources
+    snr = photom_flux/photom_flux_err
+    
+    #if the snr is below -5 then we know it is bad we make the flux 0 and error really big
+    bad_flux_idx = snr < -5
+
+    #setting bad flux to a really small value and error to be really big
+    photom_flux[bad_flux_idx] = 0
+    photom_flux_err[bad_flux_idx] = 1e16
+
+    photom = np.c_[photom_flux.astype(float), photom_flux_err.astype(float)]
+
+    photom = photom/1000
+    
+    return photom
+
+
+
 def fit_instruction_nebular_fixedz(z, model = 'delayed_tau'):
     
     '''
@@ -401,6 +446,10 @@ if __name__ == '__main__':
 
     elif survey == "CANDELS":
         load_phot = load_phot_CANDELS
+
+
+    elif survey == 'UDS':
+        load_phot = load_phot_UDS
         
     
     else:
