@@ -42,7 +42,7 @@ def load_phot_CEERS(ID):
     #WILL NEED TO CHANGE THIS BASED OFF OF THE INPUT CATALOG
     #WE NEED TO DO THIS 
     ##########
-    Bagpipes_Phot_DF = pd.read_csv('MARISSA_CEERS_PHOTOM_MATCHED.txt', 
+    Bagpipes_Phot_DF = pd.read_csv('../data/MARISSA_CEERS_PHOTOM_MATCHED.txt', 
                                    sep = ' ', index_col = 0)
     
     ID = int(ID)
@@ -439,27 +439,21 @@ if __name__ == '__main__':
         print('No test detected. Defaulting to no Test')
         test = False 
         
-    
-        
     if survey == "CEERS":
         load_phot = load_phot_CEERS
 
     elif survey == "CANDELS":
         load_phot = load_phot_CANDELS
 
-
     elif survey == 'UDS':
         load_phot = load_phot_UDS
-        
-    
     else:
-        print('No test detected. Defaulting to no Test')
-        test = False 
+        print('No Survey detected, aborting')
+        sys.exit(-1) 
     
     ID = get_ID()
     
     z_tesla = get_redshift(Bagpipes_Phot_DF, ID)
-    print(z_tesla)
     try:
         
         fit_BP(ID, filters, load_phot, z_tesla, run, only_fit = True, model = 'bursty')
