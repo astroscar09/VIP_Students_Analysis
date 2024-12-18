@@ -1,6 +1,7 @@
 from Bagpipes_Fitting import *
 
 Bagpipes_Phot_DF = read_input_phot_cat()
+
 #ID = get_ID()
 run = get_run_name()
 
@@ -9,6 +10,9 @@ if survey == "CEERS":
 
 elif survey == "CANDELS":
     load_phot = load_phot_CANDELS
+
+elif survey == 'UDS':
+    load_phot = load_phot_UDS
 
 
 bp_fits = {}
